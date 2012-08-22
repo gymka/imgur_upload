@@ -1,0 +1,6 @@
+#!/bin/sh 
+key=$(cat key)
+TEXT=$(curl -F "image=@$1" -F "key=$key" http://api.imgur.com/2/upload.xml |  sed -e "s/.*<links><original>//" | sed -e "s/<\/original><imgur_page>.*//" | sed "s/<.*>//")
+echo "$TEXT" |xclip -selection clipboard
+zenity --info --title="Imgur Upload" --text="$TEXT"
+
